@@ -50,8 +50,14 @@ public class ReactMediaPlayerViewManager extends SimpleViewManager<ReactMediaPla
 
   @ReactProp(name = "src")
   public void setSrc(ReactMediaPlayerView view, @Nullable String uri) {
+<<<<<<< HEAD
+    if (!uri.startsWith("http")) {
+      uri = "asset:///" + uri; // app/src/main/assets/<filepath>
+      }
+=======
     String appId = view.getContext().getPackageName();
     if (!uri.startsWith("http")) {  uri = "android.resource://" + appId + "/" + uri; }
+>>>>>>> 8f068b9... Fix/Add support for local assets.
     Log.d(TAG, "setSrc...src=" + uri);
     view.setUri(uri);
   }

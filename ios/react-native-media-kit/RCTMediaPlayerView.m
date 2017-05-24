@@ -51,26 +51,16 @@
   if(!player) {
     NSURL *url;
     NSString *httpPrefix = @"http";
-    if ([self.src hasPrefix:httpPrefix] || [self.src hasPrefix:@"file"]) {
-        url = [NSURL URLWithString:self.src];
-        NSDictionary * options = nil;
-        if (_httpHeaders.count > 0 && ![self.src hasPrefix:@"file"]) {
-            options = @{@"AVURLAssetHTTPHeaderFieldsKey" : _httpHeaders};
-        }
-        AVURLAsset * asset = [AVURLAsset URLAssetWithURL:url options:options];
-        AVPlayerItem * item = [AVPlayerItem playerItemWithAsset:asset];
-        player = [[AVPlayer alloc] initWithPlayerItem:item];
+    if ([self.src hasPrefix:httpPrefix]) {
+      url = [NSURL URLWithString:self.src];
     } else {
-        NSString *resourceType = [self.src pathExtension];
-        NSString *resource = [[self.src lastPathComponent] stringByDeletingPathExtension];
-        NSBundle *mainBundle = [NSBundle mainBundle];
-        NSString *file = [mainBundle pathForResource:resource ofType:resourceType];
-        if (!file) {
-            file = _src; // might be local file path other than resources
-        }
-        url = [NSURL fileURLWithPath:file];
-        player = [AVPlayer playerWithURL:url];
+      NSString *resourceType = [self.src pathExtension];
+      NSString *resource = [[self.src lastPathComponent] stringByDeletingPathExtension];
+      NSBundle *mainBundle = [NSBundle mainBundle];
+      NSString *file = [mainBundle pathForResource:resource ofType:resourceType];
+      url = [NSURL fileURLWithPath:file];
     }
+    player = [AVPlayer playerWithURL:url];
     [self setPlayer:player];
     [self addProgressObserver];
     [self addObservers];

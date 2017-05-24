@@ -37,8 +37,7 @@ export default class MediaPlayerView extends React.Component {
 
   static propTypes = {
     ...RCTMediaPlayerView.propTypes,
-    controls: PropTypes.bool,
-    poster: PropTypes.string
+    controls: PropTypes.bool    
   }
 
   static defaultProps = {

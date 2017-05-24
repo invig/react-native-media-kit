@@ -81,7 +81,7 @@ export default class MediaPlayerView extends React.Component {
           height: this.state.height,
           resizeMode: 'contain'
           }}
-          source={{uri: this.props.poster}}/>
+          source={this.props.poster}/>
       );
     }
 
